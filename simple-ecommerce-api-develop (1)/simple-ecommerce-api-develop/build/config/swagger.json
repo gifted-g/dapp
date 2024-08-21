@@ -1,0 +1,580 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Mock ECommerce API",
+    "description": "mock ecommerce api",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "simple-ecommerce-mock.herokuapp.com",
+  "basePath": "/api",
+
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    },
+    {
+      "name": "Category",
+      "description": "API for category"
+    },
+    {
+      "name": "Products",
+      "description": "API for products"
+    }
+  ],
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/UserSignup"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/UserSignup"
+            }
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Logins a user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that want to login",
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "user is login succcessful",
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/category": {
+      "get": {
+        "tags": ["Category"],
+        "description": "Get all category",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "category fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Category"],
+        "description": "Adds a new category",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          },
+          {
+            "name": "Category",
+            "in": "body",
+            "description": "Category to be added",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Category added succcessful",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/category/{categoryId}": {
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "description": "Auth token - `Bearer {token}`"
+        },
+        {
+          "name": "categoryId",
+          "in": "path",
+          "required": true,
+          "description": "ID of category to perform operation on",
+          "type": "string"
+        }
+      ],
+      "patch": {
+        "tags": ["Category"],
+        "description": "Updates a category",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          },
+          {
+            "name": "category",
+            "in": "body",
+            "description": "Category to be updated",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Category updated succcessful",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Category"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          }
+        ],
+        "description": "Deletes a category",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Category deleted succcessful"
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/product": {
+      "get": {
+        "tags": ["Products"],
+        "description": "Get all products",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Data limit",
+            "type": "Number",
+            "example": 10
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page to fetch",
+            "type": "Number",
+            "example": 1
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "categories to fetch - seperate with comma",
+            "type": "Number",
+            "example": "Shoe"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Products"],
+
+        "description": "Adds a new product",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          },
+          {
+            "name": "product",
+            "in": "body",
+            "description": "Product to be added",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "product added succcessful",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/product/{productId}": {
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "description": "Auth token - `Bearer {token}`"
+        },
+        {
+          "name": "productId",
+          "in": "path",
+          "required": true,
+          "description": "ID of product that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          }
+        ],
+        "description": "Get product with given ID",
+        "responses": {
+          "200": {
+            "description": "Product fetched",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Products"],
+        "description": "Updates a product",
+
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          },
+          {
+            "name": "product",
+            "in": "body",
+            "description": "Product to be updated",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "product updated succcessful",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token - `Bearer {token}`"
+          }
+        ],
+        "description": "Deletes a product",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "product deleted succcessful"
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UserSignup": {
+      "required": ["email", "lastName", "firstName", "password"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserLogin": {
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Product": {
+      "required": [
+        "productName",
+        "price",
+        "description",
+        "product",
+        "categories"
+      ],
+      "properties": {
+        "productName": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Category": {
+      "required": ["categoryName"],
+      "properties": {
+        "categoryName": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}
