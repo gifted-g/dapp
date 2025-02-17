@@ -1,0 +1,7 @@
+module booking-app
+
+go 1.17
+gomobile bind -target=android <package>
+gomobile build -target=android <package>
+adb install <your-app>.apk
+

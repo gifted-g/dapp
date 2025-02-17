@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go Conference Ticket Booking</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the Go Conference Booking</h1>
+    <p>We have <span id="remaining-tickets"></span> tickets available for Go Conference.</p>
+    
+    <form id="booking-form">
+      <div>
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" required>
+      </div>
+      <div>
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" required>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div>
+        <label for="tickets">Number of Tickets</label>
+        <input type="number" id="tickets" name="tickets" required min="1" max="10">
+      </div>
+      <button type="submit">Book Tickets</button>
+    </form>
+
+    <div id="output"></div>
+  </div>
+
+  <script src="booking.js"></script>
+</body>
+</html>
